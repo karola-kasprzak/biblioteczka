@@ -141,11 +141,13 @@ function createCard(element) {
 
   const bookScoreDiv = createElement("div", "class", "mt-0");
 
-  const bookScoreLabel = createElement("span", "class", "pr-2");
-  bookScoreLabel.innerHTML = `Ocena: ${element.score}`;
+  // const bookScoreLabel = createElement("span", "class", "pr-2");
+  // bookScoreLabel.innerHTML = `Ocena: ${element.score}`;
   // na razie bez gwiazdek
+  bookScoreDiv.innerHTML = printStars(element.score);
 
-  bookScoreDiv.appendChild(bookScoreLabel);
+
+  // bookScoreDiv.appendChild(bookScoreLabel);
   bookDivBody.appendChild(bookTitle);
   bookDivBody.appendChild(bookAuthor);
   bookDivBody.appendChild(bookGenre);
@@ -155,6 +157,14 @@ function createCard(element) {
 
   return rootDiv.appendChild(bookDiv);
 }
+
+function printStars (score) {
+  const bookScoreLabel = createElement("span", "class", "pr-2");
+  bookScoreLabel.innerHTML = "Ocena: ";
+  
+  return bookScoreLabel.innerText + `${score}`
+}
+
 
 const addBtn = document.querySelector('.box--btn__add');
 addBtn.addEventListener("click", addBook);
