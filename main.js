@@ -1,20 +1,23 @@
 const books =[];
+// dodano dwa nowe klucze genre i score
 class Book {
-  constructor(title,author,img) {
+  constructor(title,author,img,genre,score) {
     this.title = title,
     this.author = author,
-    this.img = img
+    this.img = img,
+    this.genre = genre,
+    this.score = score
   }
 };
 
 //funkcja dodająca nowy obiekt do tablicy books
 function addBook () {
-  let newTitle = document.querySelector('input[name="title"]').value; 
-  //input w query selector jest opcjonalny w tym przypadku
-  console.log(newTitle);
+  let newTitle = document.querySelector('input[name="title"]').value; //input w query selector jest opcjonalny w tym przypadku
   let newAuthor = document.querySelector('[name="author"]').value;
   let newImg = document.querySelector('[name="img"]').value;
-  let newItem = new Book(newTitle,newAuthor,newImg);
+  let newGenre = document.querySelector('[name="genre"]').value;
+  let newScore = document.querySelector('[name="score"]').value;
+  let newItem = new Book(newTitle,newAuthor,newImg,newGenre,newScore);
   books.push(newItem);
   console.log(books);
 };
@@ -63,5 +66,5 @@ function clearInput () {
 
 const addBtn = document.querySelector('.box--btn__add');
 addBtn.addEventListener("click", addBook);
-addBtn.addEventListener("click", displayAll);
-addBtn.addEventListener("click", clearInput);
+// addBtn.addEventListener("click", displayAll);
+// addBtn.addEventListener("click", clearInput);
