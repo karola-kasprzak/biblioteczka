@@ -60,11 +60,13 @@ function createElement (tagName, attr, attrValue) {
 function clearInput () {  
   document.querySelector('input[name="title"]').value = ""; 
   document.querySelector('[name="author"]').value = "";
-  document.querySelector('[name="img"]').value = ""; 
+  document.querySelector('[name="img"]').value = "";
+  document.querySelector('[name="genre"]').value = "0";
+  document.querySelector('[name="score"]').value = ""; 
 };
 
 
 const addBtn = document.querySelector('.box--btn__add');
 addBtn.addEventListener("click", addBook);
 // addBtn.addEventListener("click", displayAll);
-// addBtn.addEventListener("click", clearInput);
+addBtn.addEventListener("click", clearInput);
