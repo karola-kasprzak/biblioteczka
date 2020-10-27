@@ -1,15 +1,28 @@
-<div class="card m-2" style="width: 18rem;">
-  <img src="books.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Tytuł książki</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Autor książki</h6>
-    <p class="mb-2">Gatunek: <span class="">powieść obyczajowa</span></p>
+<!-- Card Variables Map:
+      bookDiv
+        bookImg
+        bookDivBody
+          bookTitle
+          bookAuthor
+          bookGenre
+          bookScoreDiv
+            bookScoreLabel
+            bookStarYellow * n
+            bookStarGray * (6-n)
+             -->
+
+<div class="card m-2" style="width: 18rem;"> <!-- variable name: bookDiv -->
+  <img src="books.jpg" class="card-img-top" alt="..."> <!-- variable name: bookImg -->
+  <div class="card-body"> <!-- variable name: bookDivBody -->
+    <h5 class="card-title">Tytuł książki</h5> <!-- variable name: bookTitle -->
+    <h6 class="card-subtitle mb-2 text-muted">Autor książki</h6> <!-- variable name: bookAuthor -->
+    <p class="mb-2">Gatunek: powieść obyczajowa</p> <!-- variable name: bookGenre -->
 
 
-    <div class="mt-0">
-      <span class="pr-2">Ocena: </span>
+    <div class="mt-0"> <!-- variable name: bookScoreDiv  -->
+      <span class="pr-2">Ocena: </span> <!-- variable name: bookScoreLabel -->
 
-      <svg viewBox="0 0 512.002 512.002" style="width: 22px; fill: #ffc107">
+      <svg viewBox="0 0 512.002 512.002" style="width: 22px; fill: #ffc107"> <!-- variable name: bookStarYellow  -->
 
         <g>
           <path d="M511.267,197.258c-1.764-5.431-6.457-9.389-12.107-10.209l-158.723-23.065L269.452,20.157
@@ -21,7 +34,7 @@
         </g>
       </svg>
 
-      <svg viewBox="0 0 512.002 512.002" style="width: 22px; fill: #6c757d">
+      <svg viewBox="0 0 512.002 512.002" style="width: 22px; fill: #6c757d"> <!-- variable name: bookStarGray  -->
 
         <g>
           <path d="M511.267,197.258c-1.764-5.431-6.457-9.389-12.107-10.209l-158.723-23.065L269.452,20.157

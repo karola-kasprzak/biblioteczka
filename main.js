@@ -17,9 +17,9 @@ function addBook() {
   let newImg = checkImg();
   let newGenre = decodeGenre();
   let newScore = checkScore();
-  if (newScore === "err" | newTitle === "err") {
-    return;
-  }
+  // if (newScore === "err" | newTitle === "err") {
+  //   return;
+  // }
   let newItem = new Book(newTitle, newAuthor, newImg, newGenre, newScore);
   books.push(newItem);
   console.log(books);
@@ -29,26 +29,7 @@ function addBook() {
 function displayAll() {
   const rootDiv = document.getElementById("root");
   rootDiv.innerHTML = ""; //czyszczenie elementu
-
-  books.forEach(element => {
-    const mainDiv = createElement("div", "class", "card");
-    const bookDiv = createElement("div", "class", "book--container card-body");
-    const bookTitle = createElement("p", "class", "book--title card-title");
-    const bookAuthor = createElement("p", "class", "book--author card-subtitle");
-    const bookImg = createElement("img", "class", "book--img img-thumbnail card-img-top");
-
-    mainDiv.styles = "width: 18rem;";
-    bookTitle.innerHTML = element.title;
-    bookAuthor.innerHTML = element.author;
-    bookImg.src = element.img;
-
-    bookDiv.appendChild(bookTitle);
-    bookDiv.appendChild(bookAuthor);
-    bookDiv.appendChild(bookImg);
-    mainDiv.appendChild(bookDiv);
-
-    return rootDiv.appendChild(mainDiv);
-  });
+  books.forEach(createCard);
 };
 
 
@@ -101,7 +82,7 @@ function decodeGenre() {
   return value
 }
 
-function checkImg () {
+function checkImg() {
   let newImg = document.querySelector('[name="img"]').value;
   if (newImg === "") {
     newImg = "books.jpg"
@@ -109,10 +90,10 @@ function checkImg () {
   return newImg
 }
 
-function checkItem (name) {
+function checkItem(name) {
   let item = document.querySelector(`input[name="${name}"]`).value;
   if (name === "title" && item === "") {
-    alert("Przynajmniej podaj tytuł książki");
+    // alert("Przynajmniej podaj tytuł książki");
     item = "err";
   } else if (item === "") {
     item = "bd."
@@ -121,20 +102,60 @@ function checkItem (name) {
   return item
 }
 
-function checkScore () {
+function checkScore() {
   let item = document.querySelector('[name="score"]').value;
-  
+
   if (item === "") {
     item = 0
-  } else if (item > 6) { 
-    alert("Podaj wartość z zakresu 1 - 6");
+  } else if (item > 6) {
+    // alert("Podaj wartość z zakresu 1 - 6");
     item = "err";
   };
 
   return item
 }
 
+function createCard(element) {
+  const rootDiv = document.getElementById("root");
+
+  // docelowy wyglad karty jest opisany w book-card.html
+
+  const bookDiv = createElement("div", "class", "card m-2");
+  bookDiv.styles = "width: 180px;";
+
+  const bookImg = createElement("img", "class", "card-img-top");
+  bookImg.src = element.img;
+  bookImg.styles = "width: 180px; !important; height: 180px; !important;"
+
+  const bookDivBody = createElement("div", "class", "card-body");
+
+  const bookTitle = createElement("h5", "class", "card-title");
+  bookTitle.innerHTML = element.title;
+
+  const bookAuthor = createElement("h6", "class", "card-subtitle mb-2 text-muted");
+  bookAuthor.innerHTML = element.author;
+
+  const bookGenre = createElement("p", "class", "mb-2");
+  bookGenre.innerHTML = `Gatunek: ${element.genre}`;
+
+  const bookScoreDiv = createElement("div", "class", "mt-0");
+
+  const bookScoreLabel = createElement("span", "class", "pr-2");
+  bookScoreLabel.innerHTML = `Ocena: ${element.score}`;
+  // na razie bez gwiazdek
+
+  bookScoreDiv.appendChild(bookScoreLabel);
+  bookDivBody.appendChild(bookTitle);
+  bookDivBody.appendChild(bookAuthor);
+  bookDivBody.appendChild(bookGenre);
+  bookDivBody.appendChild(bookScoreDiv);
+  bookDiv.appendChild(bookImg);
+  bookDiv.appendChild(bookDivBody);
+
+  return rootDiv.appendChild(bookDiv);
+}
+
 const addBtn = document.querySelector('.box--btn__add');
 addBtn.addEventListener("click", addBook);
-// addBtn.addEventListener("click", displayAll);
+addBtn.addEventListener("click", displayAll);
 addBtn.addEventListener("click", clearInput);
