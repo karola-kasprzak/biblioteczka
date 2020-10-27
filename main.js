@@ -121,11 +121,12 @@ function createCard(element) {
   // docelowy wyglad karty jest opisany w book-card.html
 
   const bookDiv = createElement("div", "class", "card m-2");
-  bookDiv.styles = "width: 180px;";
+  bookDiv.style = "width: 300px;";
+  console.log(bookDiv);
 
   const bookImg = createElement("img", "class", "card-img-top");
   bookImg.src = element.img;
-  bookImg.styles = "width: 180px; !important; height: 180px; !important;"
+  bookImg.style = "width: 298px; height: 298px;";
 
   const bookDivBody = createElement("div", "class", "card-body");
 
