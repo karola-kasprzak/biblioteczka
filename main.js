@@ -1,5 +1,5 @@
 const books = [];
-// dodano dwa nowe klucze genre i score
+// dodano dwa nowe klucze: genre i score
 class Book {
   constructor(title, author, img, genre, score) {
     this.title = title,
@@ -17,11 +17,13 @@ function addBook() {
   let newImg = checkImg();
   let newGenre = decodeGenre();
   let newScore = checkScore();
-  // if (newScore === "err" | newTitle === "err") {
-  //   return;
-  // }
+  //warunek nie pozwala utorzyć nowego obiektu bez tytułu lub z nieprawidłową liczbą przyznanych gwiazdek
+  if (newScore === "err" | newTitle === "err") {
+    return;
+  }
   let newItem = new Book(newTitle, newAuthor, newImg, newGenre, newScore);
-  books.unshift(newItem); //zmiana z push żeby najnowsze karty ładowały się jako pierwsze
+  //zmiana z push żeby najnowsze karty ładowały się jako pierwsze
+  books.unshift(newItem);
   console.log(books);
 };
 
@@ -32,14 +34,14 @@ function displayAll() {
   books.forEach(createCard);
 };
 
-
+// fukcja do tworzenia elementu z zadanym atrybutem i jego waroscia
 function createElement(tagName, attr, attrValue) {
   const tag = document.createElement(tagName);
   tag.setAttribute(attr, attrValue);
   return tag;
 }
 
-
+// czyszczenie formularza
 function clearInput() {
   document.querySelector('input[name="title"]').value = "";
   document.querySelector('[name="author"]').value = "";
@@ -48,6 +50,7 @@ function clearInput() {
   document.querySelector('[name="score"]').value = "";
 };
 
+// funkcja zwraca nazwe gatunku z pola "Gatunek" w formularzu
 function decodeGenre() {
   let newGenre = document.querySelector('[name="genre"]').value;
   let value = "";
@@ -82,6 +85,7 @@ function decodeGenre() {
   return value
 }
 
+// f. sprawdzająca czy podano url w formularzu i zwracajaca ten url lub domyslny obraz jesli nie podano innego url
 function checkImg() {
   let newImg = document.querySelector('[name="img"]').value;
   if (newImg === "") {
@@ -90,39 +94,38 @@ function checkImg() {
   return newImg
 }
 
+// f. sprawdzająca wartości pól tekstowych w formularzu i drukująca "b.d." w przypadku ich braku lub "err" jeśli tym polem był tytuł książki
 function checkItem(name) {
   let item = document.querySelector(`input[name="${name}"]`).value;
   if (name === "title" && item === "") {
-    // alert("Przynajmniej podaj tytuł książki");
+    alert("Książka musi mieć tytuł");
     item = "err";
   } else if (item === "") {
-    item = "bd."
+    item = "b.d."
   };
-
   return item
 }
 
+// f. sprawdzajaca wartość podaną w polu "Ocena" i zaokrąglająca w górę w przypadku ułamkowych ocen oraz nie pozwalająca przyznać ujemnych gwiazdek
 function checkScore() {
-  let item = document.querySelector('[name="score"]').value;
-
+  let item = Math.ceil(document.querySelector('[name="score"]').value);
   if (item === "") {
     item = 0
-  } else if (item > 6) {
-    // alert("Podaj wartość z zakresu 1 - 6");
+  } else if (item > 6 || item <= 0) {
+    alert("Możesz przyznać od 1 do 6 gwiazdek");
     item = "err";
   };
-
   return item
 }
 
+// f. tworzaca karte ksiazki
 function createCard(element) {
   const rootDiv = document.getElementById("root");
 
   // docelowy wyglad karty jest opisany w book-card.html
-
   const bookDiv = createElement("div", "class", "card m-2");
   bookDiv.style = "width: 300px;";
-  
+
   const bookImg = createElement("img", "class", "card-img-top");
   bookImg.src = element.img;
   bookImg.style = "width: 298px; height: 298px;";
@@ -140,26 +143,26 @@ function createCard(element) {
 
   const bookScoreDiv = createElement("div", "class", "mt-0");
 
-  // Tworzenie napisu "Ocena: "
+    // Tworzenie napisu "Ocena: "
   const bookScoreLabel = createElement("span", "class", "pr-2");
   bookScoreLabel.innerHTML = "Ocena: ";
   bookScoreDiv.appendChild(bookScoreLabel);
 
-  // Drukowanie gwiazdek
+    // Drukowanie gwiazdek
   const numYellowStars = element.score;
   const numGrayStars = 6 - element.score;
 
-  const bookStarYellow = drawStar("star--yellow");
-  console.log(bookStarYellow)
-  bookScoreDiv.appendChild(bookStarYellow);
+  for (let i = 1; i <= numYellowStars; i++) {
+    const bookStarYellow = createElement("img", "class", "star");
+    bookStarYellow.setAttribute("src", "star_yellow.png");
+    bookScoreDiv.appendChild(bookStarYellow);
+  }
 
-  // for (let i = 0; i <= numYellowStars; i++) {
-  //   bookScoreDiv.appendChild(drawStar("star--yellow"));
-  // }
-
-  // for (let i = 0; i <= numGrayStars; i++) {
-  //   bookScoreDiv.appendChild(drawStar("star--gray"));
-  // }
+  for (let i = 1; i <= numGrayStars; i++) {
+    const bookStarGray = createElement("img", "class", "star");
+    bookStarGray.setAttribute("src", "star_gray.png");
+    bookScoreDiv.appendChild(bookStarGray);
+  }
 
   bookDivBody.appendChild(bookTitle);
   bookDivBody.appendChild(bookAuthor);
@@ -171,40 +174,8 @@ function createCard(element) {
   return rootDiv.appendChild(bookDiv);
 }
 
-// function printStars(score) {
-//   const bookScoreLabel = createElement("span", "class", "pr-2");
-//   bookScoreLabel.innerHTML = "Ocena: ";
-
-  
-//   const bookStarYellow = drawStar("star--yellow");
-//   console.log("printStars -> bookStarYellow", bookStarYellow)
-
-  
-//   const bookStarGray = drawStar("star--gray");
-//   console.log("printStars -> bookStarGray", bookStarGray)
-  
-//   const numYellowStars = score;
-//   const numGrayStars = 6 - score;
-
-//   return bookScoreLabel.innerText + bookStarYellow
-// }
-
-function drawStar (colorClass) {
-  let ns = 'http://www.w3.org/2000/svg';
-  const bookStar__pathTag = document.createElementNS(ns, "path")
-  bookStar__pathTag.setAttribute("d", "M100 100 L100 0 A100 100 0 0 1 187 50 Z");
-  
-  // const bookStar__gTag = document.createElement("g");
-  const bookStar__svgTag = createElement("svg", "viewBox", "0 0 512.002 512.002");
-
-  // bookStar__gTag.appendChild(bookStar__pathTag);
-  bookStar__svgTag.appendChild(bookStar__pathTag);
-
-  bookStar__svgTag.classList.add("star", colorClass);
-  return bookStar__svgTag
-}
-
-const addBtn = document.querySelector('.box--btn__add');
+// Dodanie funkcji do przycisku "Dodaj"
+const addBtn = document.querySelector('#add');
 addBtn.addEventListener("click", addBook);
 addBtn.addEventListener("click", displayAll);
 addBtn.addEventListener("click", clearInput);
