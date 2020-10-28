@@ -80,7 +80,7 @@ function decodeGenre() {
       value = "inne";
       break;
     default:
-      value = "bd.";
+      value = "b.d.";
   }
   return value
 }
@@ -89,7 +89,7 @@ function decodeGenre() {
 function checkImg() {
   let newImg = document.querySelector('[name="img"]').value;
   if (newImg === "") {
-    newImg = "books.jpg"
+    newImg = "img/books.jpg"
   };
   return newImg
 }
@@ -111,7 +111,7 @@ function checkScore() {
   let item = Math.ceil(document.querySelector('[name="score"]').value);
   if (item === "") {
     item = 0
-  } else if (item > 6 || item <= 0) {
+  } else if (item > 6 || item < 0) {
     alert("Możesz przyznać od 1 do 6 gwiazdek");
     item = "err";
   };
@@ -154,13 +154,13 @@ function createCard(element) {
 
   for (let i = 1; i <= numYellowStars; i++) {
     const bookStarYellow = createElement("img", "class", "star");
-    bookStarYellow.setAttribute("src", "star_yellow.png");
+    bookStarYellow.setAttribute("src", "img/star_yellow.png");
     bookScoreDiv.appendChild(bookStarYellow);
   }
 
   for (let i = 1; i <= numGrayStars; i++) {
     const bookStarGray = createElement("img", "class", "star");
-    bookStarGray.setAttribute("src", "star_gray.png");
+    bookStarGray.setAttribute("src", "img/star_gray.png");
     bookScoreDiv.appendChild(bookStarGray);
   }
 
